@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>J.A.F Security Limited | Professional Security Services</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ------------- CSS VARIABLES ------------- */
+    :root {
+      --clr-primary: #102542;
+      /* deep navy */
+      --clr-accent: #f9b248;
+      /* amber */
+      --clr-bg: #f5f7fa;
+      --clr-text: #1c1e21;
+      --radius-lg: 1.25rem;
+      --transition-fast: 0.25s ease;
+    }
+
+    /* ------------- GLOBAL RESETS ------------- */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+      color: var(--clr-text);
+      background: var(--clr-bg);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    img,
+    video {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ------------- UTILITY CLASSES ------------- */
+    .container {
+      width: min(90%, 1100px);
+      margin-inline: auto;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-lg);
+      background: var(--clr-accent);
+      color: #000;
+      font-weight: 600;
+      transition: background var(--transition-fast);
+    }
+
+    .btn:hover {
+      background: #ffc670;
+    }
+
+    /* ------------- NAVIGATION ------------- */
+    header {
+      background: var(--clr-primary);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 10px rgb(0 0 0 / 0.15);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 0;
+      color: #fff;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #fff;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-link a {
+      font-weight: 500;
+      transition: color var(--transition-fast);
+    }
+
+    .nav-link a:hover,
+    .nav-link a:focus {
+      color: var(--clr-accent);
+    }
+
+    #nav-toggle {
+      display: none;
+    }
+
+    .nav-toggle-label {
+      display: none;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .nav-toggle-label span {
+      width: 24px;
+      height: 3px;
+      background: #fff;
+      border-radius: 2px;
+      transition: transform var(--transition-fast);
+    }
+
+    /* ------------- HERO ------------- */
+    .hero {
+      display: flex;
+      /* replaces the grid */
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding-top: clamp(4rem, 10vh, 6rem);
+      /* space under sticky nav */
+      min-height: 60vh;
+      color: #fff;
+      background: var(--clr-primary);
+    }
+
+    .hero>.container {
+      max-width: 45rem;
+      /* keeps lines readable */
+      margin-inline: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      max-width: 20ch;
+    }
+
+    .hero p {
+      margin-block: 1.25rem 0;
+      font-size: 1.125rem;
+      max-width: 45ch;
+      margin-inline: auto;
+    }
+
+    /* ------------- MEDIA SHOWCASE (video + side images) ------------- */
+    #media-showcase {
+      padding-block: 4rem 2rem;
+    }
+
+    #contact {
+      padding-block: 4rem;
+      text-align: center;
+      /* NEW */
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 2rem;
+      /* keep spacing consistent */
+    }
+
+    .media-grid {
+      display: grid;
+
+      grid-template-columns: 1fr 0.9fr 1fr;
+      /* narrower middle column */
+      justify-items: center;
+      /* centers children in their cells */
+      /* left image, video, right image */
+      gap: 7rem;
+      align-items: center;
+    }
+
+
+
+    .media-item {
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 8px 20px rgb(0 0 0 / 0.08);
+      background: #000;
+      position: relative;
+    }
+
+    /* Maintain aspect ratios */
+    .media-item.video {
+      aspect-ratio: 9 / 16;
+      /* vertical video */
+    }
+
+    .media-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .media-item.small-img {
+      aspect-ratio: 4 / 5;
+      /* tweak as needed */
+    }
+
+    .media-caption {
+      position: absolute;
+      bottom: 0.5rem;
+      left: 0.5rem;
+      right: 0.5rem;
+      background: rgb(0 0 0 / 0.55);
+      color: #fff;
+      font-size: 0.85rem;
+      padding: 0.4rem 0.6rem;
+      border-radius: 0.4rem;
+    }
+
+    /* ------------- PROJECTS ------------- */
+    #projects {
+      padding-block: 4rem;
+    }
+
+    .projects-grid {
+      display: grid;
+      gap: 2rem;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    }
+
+    .project-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgb(0 0 0 / 0.07);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgb(0 0 0 / 0.1);
+    }
+
+    .project-card img {
+      aspect-ratio: 16 / 12;
+      object-fit: cover;
+    }
+
+    .project-card h3 {
+      padding: 1rem 1.25rem 0.5rem;
+      font-size: 1.125rem;
+    }
+
+    .project-card p {
+      padding: 0 1.25rem 1.25rem;
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    /* ------------- SERVICES ------------- */
+    #services {
+      background: var(--clr-primary);
+      color: #fff;
+      padding-block: 4rem;
+    }
+
+    .services-grid {
+      display: grid;
+      gap: 2.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .service {
+      background: rgb(255 255 255 / 0.05);
+      backdrop-filter: blur(4px);
+      padding: 2rem 1.5rem;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 4px 12px rgb(0 0 0 / 0.15);
+      transition: transform var(--transition-fast);
+    }
+
+    .service:hover {
+      transform: translateY(-4px);
+    }
+
+    .service h3 {
+      margin-bottom: 0.75rem;
+      font-size: 1.25rem;
+    }
+
+    /* ------------- CONTACT ------------- */
+    #contact {
+      padding-block: 4rem;
+    }
+
+
+    .uk-flag {
+      position: fixed;
+      top: calc(var(--header-h) + 0.5rem);
+      width: 160px;
+      /* flag size */
+
+      /* keeps it proportional if SVG/png lacks intrinsic ratio */
+      z-index: 90;
+      /* under nav (100) but above content */
+      display: block;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgb(0 0 0 / 0.25);
+      transition: transform 0.2s ease;
+    }
+
+    /* EU flag background behind the media section */
+    .flag-bg {
+      position: relative;
+      isolation: isolate;
+      /* ensures the pseudo-element stays behind children */
+    }
+
+
+    .flag-bg::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 100vw;
+      /* full page width */
+      height: 120%;
+      transform: translateX(-50%);
+      /* centers the 100vw box */
+      background: url("./images/eu-flag.webp") center/cover no-repeat;
+      opacity: 0.78;
+      z-index: -1;
+    }
+
+
+    /* ------------- FOOTER ------------- */
+    footer {
+      background: var(--clr-primary);
+      color: #fff;
+      text-align: center;
+      padding: 1.25rem 0;
+      font-size: 0.875rem;
+    }
+
+    /* ------------- MEDIA QUERIES ------------- */
+    @media (max-width: 900px) {
+      .media-grid {
+        grid-template-columns: 1fr;
+        /* stack on small screens */
+      }
+
+      .media-item.video {
+        aspect-ratio: 9 / 16;
+        max-width: 420px;
+        margin-inline: auto;
+      }
+
+      .media-item.small-img {
+        aspect-ratio: 4 / 5;
+        max-width: 320px;
+        margin-inline: auto;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav-toggle-label {
+        display: flex;
+      }
+
+      @media (max-width: 720px) {
+        .flag-bg::before {
+          content: none;
+          /* remove the pseudo-element */
+          display: none;
+          /* (optional) belt & braces */
+          background: none;
+          /* ensure no bg is drawn */
+        }
+      }
+
+      .nav-links {
+        position: absolute;
+        inset: 100% 0 auto 0;
+        background: var(--clr-primary);
+        flex-direction: column;
+        align-items: center;
+        padding-block: 1rem 2rem;
+        transform: translateY(-200%);
+        transition: transform var(--transition-fast);
+      }
+
+      #nav-toggle:checked+.nav-toggle-label+.nav-links {
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ------------- NAV ------------- -->
+  <header>
+    <div class="container nav">
+      <a href="#" class="logo">J.A.F Security Limited</a>
+
+      <input type="checkbox" id="nav-toggle" aria-label="Open navigation menu" />
+      <label for="nav-toggle" class="nav-toggle-label" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </label>
+
+      <ul class="nav-links" role="menu">
+        <li class="nav-link" role="none"><a href="#projects" role="menuitem">Events</a></li>
+        <li class="nav-link" role="none"><a href="#services" role="menuitem">Services</a></li>
+        <li class="nav-link" role="none"><a href="#contact" role="menuitem">Contact Us</a></li>
+      </ul>
+    </div>
+  </header>
+  <a href="./images/flag.webp" class="uk-flag" aria-label="United Kingdom">
+    <img src="./images/flag.webp" alt="UK flag" />
+  </a>
+
+
+
+  <!-- ------------- HERO ------------- -->
+
+
+  <!-- ------------- MEDIA SHOWCASE ------------- -->
+  <section id="media-showcase" class="container flag-bg">
+    <h2 class="section-title" style="text-align:center;margin-bottom:2rem;"></h2>
+    <div class="media-grid">
+      <!-- Left small image -->
+      <img src="./images/1000022717[66].png" alt="Description of left image" />
+      </figure>
+
+      <!-- Center vertical video -->
+      <figure class="media-item video">
+        <video src="./images/VID-20250722-WA0011.mp4" poster="PATH_TO_VIDEO_POSTER.jpg" controls playsinline></video>
+      </figure>
+
+      <!-- Right small image -->
+      <img src="./images/1000022718[20].png" alt="Description of right image" />
+      </figure>
+    </div>
+  </section>
+
+  <!-- ------------- PROJECTS ------------- -->
+  <section id="projects" class="container">
+    <br><br> <br><br>
+
+
+    <h2 class="section-title">Recent Events</h2>
+
+    <div class="projects-grid">
+      <article class="project-card">
+        <img src="./images/1000022714.png" alt="Music Concert at Villa Park" />
+        <h3>Music Concert at Villa Park</h3>
+        <p>Working as Event Close Protection and Security Team Leader.</p>
+      </article>
+
+      <article class="project-card">
+        <img src="./images/10000227151copy.png" alt="Mehwish Riaz Charity Event" />
+        <h3>Mehwish Riaz Charity Event</h3>
+        <p>Personal Bodyguard, Close Protection to Mehwish Riaz.</p>
+      </article>
+
+      <article class="project-card">
+        <img src="./images/1000022716.png" alt="PopWorld" />
+        <h3>PopWorld</h3>
+        <p>Working as head doormen.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ------------- SERVICES ------------- -->
+  <section id="services">
+    <div class="container">
+      <h2 class="section-title" style="text-align:center;margin-bottom:2rem;">Our Core Services - up to 24 hours</h2>
+      <div class="services-grid">
+        <div class="service">
+          <h3>Close Protection Bodyguard</h3>
+        </div>
+        <div class="service">
+          <h3>Private Driving</h3>
+        </div>
+        <div class="service">
+          <h3>Event Patrolling</h3>
+        </div>
+        <div class="service">
+          <h3>Unarmed Security</h3>
+        </div>
+        <div class="service">
+          <h3>Mobile Patrols</h3>
+        </div>
+        <div class="service">
+          <h3>Armed Security</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ------------- CONTACT ------------- -->
+  <section id="contact" class="container">
+    <h2 class="section-title">Contact Us</h2>
+    <p class="section-intro">Ready to discuss your security requirements? Drop us an email at kgbodyguard@gmail.com.</p>
+
+  </section>
+
+  <!-- ------------- FOOTER ------------- -->
+  <footer>
+    <p>&copy; <span id="year"></span> J.A.F Security Services Ltd. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Auto-update year in footer
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+
+</html>
