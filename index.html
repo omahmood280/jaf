@@ -198,6 +198,49 @@
     }
 
 
+    /* ------------- NEW: BOTTOM IMAGE STRIP ------------- */
+    #bottom-gallery {
+      padding-block: 2.5rem 3.25rem;
+    }
+
+    .bottom-gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      justify-items: center;
+      align-items: center;
+    }
+
+    .bottom-gallery-card {
+      width: 100%;
+      max-width: 520px;
+      /* keeps each image nicely sized on large screens */
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgb(0 0 0 / 0.08);
+      background: #fff;
+    }
+
+    .bottom-gallery-card img {
+      width: 100%;
+      height: auto;
+      /* maintains native aspect ratio */
+      display: block;
+    }
+
+    @media (min-width: 900px) {
+      .bottom-gallery-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.75rem;
+      }
+
+      .bottom-gallery-card {
+        max-width: 100%;
+      }
+    }
+
+
+
 
     .media-item {
       overflow: hidden;
@@ -733,6 +776,19 @@
     <p class="section-intro">Ready to discuss your security requirements? Drop us an email at jafsecureltd@hotmail.com.
     </p>
 
+  </section>
+
+  <!-- ------------- NEW: TWO IMAGES STRIP (below contact, above footer) ------------- -->
+  <section id="bottom-gallery" class="container" aria-label="Company gallery images">
+    <div class="bottom-gallery-grid">
+      <figure class="bottom-gallery-card">
+        <img src="images/image1.jpeg" alt="Placeholder left image" loading="lazy" />
+      </figure>
+
+      <figure class="bottom-gallery-card">
+        <img src="images/image2.jpeg" alt="Placeholder right image" loading="lazy" />
+      </figure>
+    </div>
   </section>
 
   <!-- ------------- FOOTER ------------- -->
